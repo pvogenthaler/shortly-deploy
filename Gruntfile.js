@@ -30,11 +30,16 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      my_target: {
+        files: {
+          'public/dist/min.js': ['public/dist/concat.js']
+        }
+      }
     },
 
     eslint: {
       target: [
-        // Add list of files to lint here
+        'public/dist/min.js'
       ]
     },
 
@@ -86,7 +91,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
-    'concat'
+    'concat', 'uglify', 'eslint', 'mochaTest'
   ]);
 
   grunt.registerTask('upload', function(n) {
