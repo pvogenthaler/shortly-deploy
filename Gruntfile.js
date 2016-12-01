@@ -1,15 +1,15 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
     concat: {
       options: {
-        separator: ';',
+        separator: ';'
       },
       dist: {
         src: ['public/client/*.js'],
-        dest: 'public/dist/concat.js',
-      },
+        dest: 'public/dist/concat.js'
+      }
     },
 
     mochaTest: {
@@ -70,24 +70,24 @@ module.exports = function(grunt) {
       prodServer: {
         command: 'git push live master'
       }
-    },
+    }
 
-  });
+  })
 
   //modified added tasks
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-eslint');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-concat')
+  grunt.loadNpmTasks('grunt-contrib-uglify')
+  grunt.loadNpmTasks('grunt-eslint')
+  grunt.loadNpmTasks('grunt-contrib-cssmin')
 
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-mocha-test');
-  grunt.loadNpmTasks('grunt-shell');
-  grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-contrib-watch')
+  grunt.loadNpmTasks('grunt-mocha-test')
+  grunt.loadNpmTasks('grunt-shell')
+  grunt.loadNpmTasks('grunt-nodemon')
 
   grunt.registerTask('server-dev', function (target) {
-    grunt.task.run([ 'nodemon', 'watch' ]);
-  });
+    grunt.task.run([ 'nodemon', 'watch' ])
+  })
 
   ////////////////////////////////////////////////////
   // Main grunt tasks
@@ -95,11 +95,11 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', [
     'mochaTest'
-  ]);
+  ])
 
   grunt.registerTask('build', [
     'concat', 'uglify', 'eslint', 'mochaTest'
-  ]);
+  ])
 
   grunt.registerTask('upload', function (n) {
     if (grunt.option('prod')) {
@@ -107,15 +107,14 @@ module.exports = function(grunt) {
       // shell: 'git push live master'
       'shell'
     } else {
-      grunt.task.run([ 'server-dev' ]);
+      grunt.task.run([ 'server-dev' ])
     }
-  });
+  })
 
   grunt.registerTask('deploy', [
     //watch files, when saved should:
       //'build', 'upload' (--prod)
+    'build', 'upload'
+  ])
 
-  ]);
-
-
-};
+}
