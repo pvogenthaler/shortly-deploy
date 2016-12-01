@@ -68,6 +68,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        'git push live master'
       }
     },
   });
@@ -99,9 +100,11 @@ module.exports = function(grunt) {
     'concat', 'uglify', 'eslint', 'mochaTest'
   ]);
 
-  grunt.registerTask('upload', function(n) {
+  grunt.registerTask('upload', function (n) {
     if (grunt.option('prod')) {
       // add your production server task here
+      // shell: 'git push live master'
+      'shell'
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
@@ -109,8 +112,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
     //watch files, when saved should:
-      //'build' task, git add, git commit (-m), git push live master
-
+      //'build', 'upload' (--prod)
 
   ]);
 
